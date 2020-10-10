@@ -1,4 +1,4 @@
-#THE SPIRIT OF COMPUTING 
+# THE SPIRIT OF COMPUTING 
 
 ## Create A Pull Request Now And Lets Have Fun Coding Algorithms 😊️
 
