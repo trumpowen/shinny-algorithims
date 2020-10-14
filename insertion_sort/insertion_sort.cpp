@@ -1,8 +1,9 @@
 #include<vector>
-#include<chrono>
+#include<ctime>
 #include<algorithm>
 #include<iostream>
 #include<iomanip>
+#include<cstdlib>
 
 /*
     Basic Version Of Insertion Sort 
@@ -61,11 +62,22 @@ int main()
         {
             target[j] = (count - j) ;
         }
-        auto start = std::chrono::system_clock::now();
+        std::cout<<"Sorting "<<count<<"  integers \r";
+        
+        time_t start = time(NULL) ;
         insertion_sort(target);
-        auto end = std::chrono::system_clock::now();
-        std::chrono::duration<double> elapsed_seconds = end-start;
-        basic_times.push_back(elapsed_seconds.count());
+        time_t end = time(NULL) ;
+        
+        // ensure it is sorted 
+        for ( long i = 1 ; i < target.size() ; ++i)
+        {
+        	if ( target[i-1] > target[i])
+			{
+			 	std::abort() ;
+			}
+		}
+        
+        basic_times.push_back(difftime(end, start));
 
         std::vector<std::string>target2(count) ;
         
@@ -79,18 +91,29 @@ int main()
             }
         }
 
-        start = std::chrono::system_clock::now();
-        //insertion_sort_generic(target2, [](const std::string& a, const std::string& b ){ return a < b; }  );
-        end = std::chrono::system_clock::now();
-        elapsed_seconds = end-start;
-        generic_times.push_back(elapsed_seconds.count()) ;
+        
+        std::cout<<"Sorting "<<count<<"  strings   \r" ;
+        
+        start = time(NULL) ;
+        insertion_sort_generic(target2, [](const std::string& a, const std::string& b ){ return a < b; }  );
+        end = time(NULL) ;
+        
+        for ( long i = 1 ; i < target2.size() ; ++i)
+        {
+        	if ( target2[i-1] > target2[i])
+			{
+			 	std::abort() ;
+			}
+		}
+
+        generic_times.push_back(difftime(end, start)) ;
     }
 
     std::cout<<"Analysis of Insertion Sort                 " ;
-    std::cout<<"\n----------------------------------------------------\n" ;
+    std::cout<<"\n--------------------------------------------------------------------\n" ;
 
     std::cout<<std::setw(10)<<"n"<<std::setw(20)<<"Integers(secs)"<<std::setw(20)<<"String(secs)"<<std::endl ;
-    std::cout<<"------------------------------------------------------\n" ;
+    std::cout<<"---------------------------------------------------------------------\n" ;
     
     for ( long i = 0 ; i < counts.size() ; ++i)
     { 

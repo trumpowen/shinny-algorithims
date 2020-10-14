@@ -92,7 +92,7 @@ int main(void)
 
     for (long i = 0 ; i < COUNT_LEN ; ++i)
     {
-        printf("Sorting .... %10ld numbers\f", counts[i]) ;
+        printf("Sorting .... %10ld numbers\r", counts[i]) ;
         long * targets = calloc(counts[i], sizeof(long)) ;
         assert(targets != NULL) ;
         // producing completely reversed integers 
@@ -104,7 +104,15 @@ int main(void)
         time_t start_time = time(NULL) ;
         insertion_sort(targets, counts[i]) ;
         time_t end_time = time(NULL) ;
-
+		
+		for ( long i = 1 ; i < counts[i] ; ++i)
+        {
+        	if ( targets[i-1] > targets[i])
+			{
+			 	abort() ;
+			}
+		}
+		
         basic_times[i] = end_time - start_time ;
 
     }
@@ -121,12 +129,19 @@ int main(void)
             targets[j-1] = strcpy(malloc(32), string_adder(s, k) );
         }
         
+        printf("Sorting .... %10ld strings\r", counts[i]) ;
         time_t start_time = time(NULL) ;
         insertion_sort_generic((void**)targets, counts[i], comparator) ;
         time_t end_time = time(NULL) ;
 
         generic_times[i] = difftime(end_time, start_time) ;
-
+		for ( long i = 1 ; i < counts[i]; ++i)
+        {
+        	if ( strcmp(targets[i-1]  ,targets[i]) > 0 )
+			{
+			 	abort() ;
+			}
+		}
         // free memory
         for (long j = counts[0] ; j ; --j)
             free(targets[j-1]);
