@@ -67,15 +67,15 @@ function main() {
             target[j] = count - j;
         }
 
-        console.log(`Sorting ${count} integers \r`)
+        process.stdout.write(`Sorting ${count} integers \r`)
 
-        const start = new Date()
+        let start = new Date()
         insertionSort(target)
-        const end = new Date()
+        let end = new Date()
 
-        basicTimes.push((start - end) / 1000)
+        basicTimes.push((end - start) / 1000)
 
-        for (let i = 1; i < target.size(); ++i) {
+        for (let i = 1; i < target.length; ++i) {
             if (target[i - 1] > target[i]) {
                 throw Error;
             }
@@ -86,28 +86,33 @@ function main() {
         let s = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 
         for (j = count, k = 0; j; --j, k++) {
-            targets[j - 1] = string_adder(s, k);
+            target[j - 1] = string_adder(s, k);
         }
 
-        console.log(`Sorting ${count} strings \r`)
+        process.stdout.write(`Sorting ${count} strings \r`)
 
-        const start = new Date()
+        start = new Date()
         insertionSortGeneric(target, (a, b) => { return a < b; })
-        const end = new Date()
+        end = new Date()
 
-        genericTimes.push((start - end) / 1000)
-
-        console.log("Analysis of Insertion Sort                 ");
-        console.log("\n----------------------------------------------------\n");
-
-        console.log(`${n.padStart(10).padEnd(10)} ${Integers(secs).padStart(10).padEnd(10)} ${Strings(secs).padStart(10).padEnd(10)}`);
-        console.log("------------------------------------------------------\n");
-
-        for (let i = 0; i < counts.length; ++i) {
-            console.log(`${String(counts[i]).padStart(10).padEnd(10)}, \
-            ${String(basic_times[i]).padStart(10).padEnd(10)}, \
-            ${String(generic_times[i]).padStart(10).padEnd(10)} \n`);
+        for (let i = 1; i < target.length; ++i) {
+            if (target[i - 1] > target[i]) {
+                throw Error;
+            }
         }
+        genericTimes.push((end - start) / 1000)
+    }
+
+    console.log("Analysis of Insertion Sort                 ");
+    console.log("\n----------------------------------------------------");
+
+    console.log(`${"n".padStart(10).padEnd(10)} ${"Integers(secs)".padStart(10).padEnd(10)} ${"Strings(secs)".padStart(10).padEnd(10)}`);
+    console.log("------------------------------------------------------");
+
+    for (let i = 0; i < counts.length; ++i) {
+        console.log(`${String(counts[i]).padStart(10).padEnd(10)}, \
+            ${String(basicTimes[i]).padStart(10).padEnd(10)}, \
+            ${String(genericTimes[i]).padStart(10).padEnd(10)} \n`);
     }
 }
 
