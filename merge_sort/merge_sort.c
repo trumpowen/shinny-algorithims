@@ -3,7 +3,7 @@
 void merge (long * array, size_t start, size_t divider, size_t end )
 {
     size_t firstPart = divider - start + 1;
-    size_t secondPart = end - divider ;
+    size_t secondPart = end - divider  ; 
 
     long * array_1 = malloc(sizeof(long) * firstPart) ;
     long * array_2 = malloc(sizeof(long) * secondPart) ;

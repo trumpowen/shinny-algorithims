@@ -1,3 +1,5 @@
+import java.util.Date
+
 fun insertionSort ( array : Array<Long>): Unit
 {
     for ( j in 0..array.size)
@@ -32,5 +34,23 @@ fun <T> insertionSortGeneric ( array : Array<T>, comparator : (a:T, b:T) -> Bool
 
 fun main()
 {
-    // sort the following in worst case    
+    var counts = IntArrayOf(10, 100, 1000, 10000, 100000, 1000000) 
+    val basicTimes : DoubleArray(count.size()) 
+    val genericTimes : DoubleArray(count.size())
+
+    for ( count in counts){
+
+        target = Array(count){ count - it } 
+
+        val start = Date() 
+        insertionSort(target) 
+        val end = Date() 
+
+        for (  i  in 1..count)
+            if (target[i] > target[i-1])
+                throw Exception()
+
+        
+    }   
+
 }
